@@ -5,6 +5,8 @@ Run command:
 '''
 
 from __future__ import print_function
+
+import argparse
 import collections
 import keras
 import numpy as np
@@ -14,10 +16,11 @@ from keras.layers import Dense, Input
 from keras.models import Model
 from keras import backend as K
 
-import utils
+import kernels
 import mnist
+import utils
+
 from backend_extra import hasGPU
-from kernels import rbf
 from layers import KernelEmbedding, RFF
 from optimizers import PSGD, SGD
 
@@ -25,34 +28,52 @@ assert keras.backend.backend() == u'tensorflow', \
        "Requires Tensorflow (>=1.2.1)."
 assert hasGPU(), "Requires GPU."
 
+parser = argparse.ArgumentParser(description='Run EigenPro tests.')
+parser.add_argument('--kernel', type=str, default='Gaussian',
+                    help='kernel function (e.g. Gaussian, Laplace, and Cauchy)')
+args = parser.parse_args()
+args_dict = vars(args)
 
-s2 = 25				# variance of Gaussian kernel
-bs = 256 			# size of the mini-batch
-n_epoch = 10		# number of epochs for training
-eta = np.float32(5)	# step size
-M = 4800			# (EigenPro) subsample size.
-k = 160				# (EigenPro) top-k eigensystem.
 
-gamma = np.float32(1. / (2 * s2)) # shape parameter of Gaussian kernel
-num_classes = 10	# number of classes
+# Set the hyper-parameters.
+bs = 256            # size of the mini-batch
+eta = np.float32(5) # step size
+M = 4800            # (EigenPro) subsample size.
+k = 160             # (EigenPro) top-k eigensystem.
+
+num_classes = 10	    # number of classes
 eta = eta * num_classes # correction due to mse loss
 
 (x_train, y_train), (x_test, y_test) = mnist.load()
-n, D = x_train.shape # (n_sample, n_feature)
+n, D = x_train.shape    # (n_sample, n_feature)
 d = np.int32(n / 2) * 2 # number of random features
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
+if args_dict['kernel'] == 'Gaussian':
+    s = 5   # kernel bandwidth
+    kernel = lambda x,y: kernels.Gaussian(x, y, s)
 
-Trainer = collections.namedtuple('Trainer', ['model', 'x_train', 'x_test'])
+elif args_dict['kernel'] == 'Laplace':
+    s = np.sqrt(10, dtype=np.float32)
+    kernel = lambda x,y: kernels.Laplace(x, y, s)
+
+elif args_dict['kernel'] == 'Cauchy':
+    s = np.sqrt(40, dtype=np.float32)
+    kernel = lambda x,y: kernels.Cauchy(x, y, s)
+
+else:
+    raise Exception("Unknown kernel function - %s. \
+                     Try Gaussian, Laplace, or Cauchy"
+                    % args_dict['kernel'])
+
 trainers = collections.OrderedDict()
+Trainer = collections.namedtuple('Trainer', ['model', 'x_train', 'x_test'])
 
 # Assemble Pegasos trainer.
 input_shape = (D+1,) # n_feature, (sample) index
-kernel = lambda x,y: rbf(x, y, gamma)
-
 ix = Input(shape=input_shape, dtype='float32', name='indexed-feat')
 x, index = utils.separate_index(ix)	# mini-batch, sample_ids
 kfeat = KernelEmbedding(kernel, x_train,
@@ -73,9 +94,7 @@ trainers['Pegasos'] = Trainer(model=model,
 # Assemble kernel EigenPro trainer.
 embed = Model(ix, kfeat)
 kf, scale = utils.asm_eigenpro_f(
-	utils.add_index(x_train),
-	lambda x: embed.predict(x, batch_size=1024),
-	M, k, 1, in_rkhs=True)
+    x_train, kernel, M, k, 1, in_rkhs=True)
 model = Model(ix, y)
 model.compile(loss='mse',
               optimizer=PSGD(pred_t=y,
@@ -88,15 +107,16 @@ trainers['Kernel EigenPro'] = Trainer(model=model,
                               x_test=utils.add_index(x_test))
 
 # Assemble SGD trainer.
+rff_weights = np.float32(       # for Gaussian kernel
+    np.sqrt(2. / (2 * 5 ** 2))  # s = 5
+    * np.random.randn(D, d/2))
 input_shape = (D,)
-rff_weights = np.float32(np.sqrt(2 * gamma) * np.random.randn(D, d/2))
-
 x = Input(shape=input_shape, dtype='float32', name='feat')
-rf = RFF(rff_weights, input_shape=input_shape)(x)
+rf_f = RFF(rff_weights, input_shape=input_shape)
 y = Dense(num_classes, input_shape=(d,),
           activation='linear',
           kernel_initializer='zeros',
-          use_bias=False)(rf)
+          use_bias=False)(rf_f(x))
 model = Model(x, y)
 
 model.compile(loss='mse',
@@ -106,10 +126,8 @@ trainers['SGD with random Fourier feature'] = Trainer(
 	model=model, x_train = x_train,	x_test=x_test)
 
 # Assemble EigenPro trainer.
-embed = Model(x, rf)
 f, scale = utils.asm_eigenpro_f(
-	x_train, lambda x: embed.predict(x, batch_size=1024),
-	M, k, .25)
+	x_train, rf_f, M, k, .25)
 model = Model(x, y)
 model.compile(loss='mse',
               optimizer=SGD(eta=scale*eta, eigenpro_f=f),
@@ -123,7 +141,7 @@ for name, trainer in trainers.iteritems():
     initial_epoch=0
     np.random.seed(1) # Keras uses numpy random number generator
     train_ts = 0 # training time in seconds
-    for epoch in [1, 5, 10, 20, 40]:
+    for epoch in [1, 2, 5, 10, 20, 40]:
         start = time.time()
         trainer.model.fit(
 			trainer.x_train, y_train,
