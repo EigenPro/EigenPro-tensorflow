@@ -6,10 +6,12 @@ from backend_extra import scatter_update
 
 class PSGD(Optimizer):
     """Primal Stochastic gradient descent optimizer.
-    # Arguments
+
+    Arguments:
         pred_t: tensor. Prediction result.
         index_t: tensor. Mini-batch indices for primal updates.
         eta: float >= 0. Step size.
+        eigenpro_f: Map grad tensor to EigenPro component.
     """
 
     def __init__(self, pred_t, index_t, eta=0.01, eigenpro_f=None, **kwargs):
@@ -51,9 +53,10 @@ class PSGD(Optimizer):
 
 class SGD(Optimizer):
     """Stochastic gradient descent optimizer.
-    # Arguments
+
+    Arguments:
         eta: float >= 0. Step size.
-        eigenpro_f: Map grad to eigenpro component.
+        eigenpro_f: Map grad tensor to EigenPro component.
     """
 
     def __init__(self, eta=0.01, eigenpro_f=None, **kwargs):
@@ -73,8 +76,7 @@ class SGD(Optimizer):
             new_p = p - eta * g
             if eigenpro_f:
                 new_p = new_p + eta * eigenpro_f(g)
-
-            # apply constraints
+# apply constraints
             if p in constraints:
                 c = constraints[p]
                 new_p = c(new_p)

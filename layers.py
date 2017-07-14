@@ -36,13 +36,15 @@ def rff(X, W):
       'Random Features for Large-Scale Kernel Machines'.
 
     Arguments:
-      X: data matrix of shape [n, D].
-      W: weight matrix of shape [D, d].
+        X: data matrix of shape (n, D).
+        W: weight matrix of shape (D, d).
+
+    Returns:
+        feature matrix of shape (n, d).
     """
 
     d = K.get_variable_shape(W)[1]
     dot = K.dot(X, W) # of shape (n, d)
-
     RF = K.concatenate([K.cos(dot), K.sin(dot)], axis=1) / np.sqrt(d, dtype='float32')
     return RF
 

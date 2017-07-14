@@ -60,6 +60,7 @@ Besides, users can pass the flag "--kernel" to choose different kernels such lik
 ```
 python run_expr.py --kernel=Laplace
 ```
+Note that we have only implemented the random Fourier feature for Gaussian kernel.
 
 ## Use the EigenPro iteration
 The EigenPro iteration can be called through a Keras Model. Please read this short [Keras tutorial](https://keras.io/getting-started/sequential-model-guide/)
@@ -80,8 +81,9 @@ Both can be calculated using utils.py,
 f, scale = utils.asm_eigenpro_f(... , in_rkhs=True)
 ```
 Here flag in\_rkhs indicates if the calculation is for PSGD (infinite dimension RKHS) or SGD (finite dimension vector space).
+The function will use truncated randomized SVD (for small dataset) or Nystrom based SVD (for large dataset) to calcualte the approximate top eigensystem of the covariance.
 
-Note that the optimizer should only be called through a model, such like
+Note that the optimizer should be connected to a Keras model,
 ```
 model.compile(loss='mse', optimizer=PSGD(...), metrics=['accuracy'])
 ```
