@@ -75,9 +75,9 @@ Trainer = collections.namedtuple('Trainer', ['model', 'x_train', 'x_test'])
 # Assemble Pegasos trainer.
 input_shape = (D+1,) # n_feature, (sample) index
 ix = Input(shape=input_shape, dtype='float32', name='indexed-feat')
-x, index = utils.separate_index(ix)	# mini-batch, sample_ids
+x, index = utils.separate_index(ix)	# features, sample_id
 kfeat = KernelEmbedding(kernel, x_train,
-                        input_shape=input_shape)(x)
+                        input_shape=(D,))(x)
 y = Dense(num_classes, input_shape=(n,),
           activation='linear',
           kernel_initializer='zeros',
