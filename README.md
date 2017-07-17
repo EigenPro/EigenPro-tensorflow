@@ -177,7 +177,7 @@ model.fit(x_train, y_train)
 ## Reference experimental results
 
 ### Classification Error (MNIST)
-In these experiments, EigenPro (Primal) achieves classification error 1.20%, after only 10 epochs. In comparison, Pegasos reaches error 1.22% after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.80% after 20 epochs and Pegasos reaches error rate 1.63% after the same number of epochs.
+In these experiments, EigenPro (Primal) achieves classification error 1.20%, after only 10 epochs. For comparison, Pegasos reaches error 1.22% after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.80% after 20 epochs and Pegasos reaches error rate 1.63% after the same number of epochs.
 
 <table>
   <tr>
