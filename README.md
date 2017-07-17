@@ -8,16 +8,16 @@ EigenPro is a preconditioned (stochastic) gradient descent iteration that accele
 </p>
 
 where
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\{({\pmb&space;x}_i,&space;y_i)\}_{i=1}^n" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\{({\pmb&space;x}_i,&space;y_i)\}_{i=1}^n" title="\{({\pmb x}_i, y_i)\}_{i=1}^n" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\{({\pmb&space;x}_i,&space;y_i)\}_{i=1}^n" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\{({\pmb&space;x}_i,&space;y_i)\}_{i=1}^n" title="\{({\pmb x}_i, y_i)\}_{i=1}^n" /></a>
 is the labeled training data. Let
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;X&space;\doteq&space;({\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n)^T,&space;{\pmb&space;y}&space;\doteq&space;(y_1,&space;\ldots,&space;y_n)^T" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;X&space;\doteq&space;({\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n)^T,&space;{\pmb&space;y}&space;\doteq&space;(y_1,&space;\ldots,&space;y_n)^T" title="X \doteq ({\pmb x}_1, \ldots, {\pmb x}_n)^T, {\pmb y} \doteq (y_1, \ldots, y_n)^T" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;X&space;\doteq&space;({\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n)^T,&space;{\pmb&space;y}&space;\doteq&space;(y_1,&space;\ldots,&space;y_n)^T" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;X&space;\doteq&space;({\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n)^T,&space;{\pmb&space;y}&space;\doteq&space;(y_1,&space;\ldots,&space;y_n)^T" title="X \doteq ({\pmb x}_1, \ldots, {\pmb x}_n)^T, {\pmb y} \doteq (y_1, \ldots, y_n)^T" /></a>
 .
 
 
 Consdier the linear setting where 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathcal{H}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\mathcal{H}" title="\mathcal{H}" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathcal{H}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\mathcal{H}" title="\mathcal{H}" /></a>
 is a vector space and
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;\doteq&space;{\pmb&space;\alpha}^T&space;{\pmb&space;x}_i" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;\doteq&space;{\pmb&space;\alpha}^T&space;{\pmb&space;x}_i" title="\left \langle {\pmb \alpha}, {\pmb x}_i \right \rangle_\mathcal{H} \doteq {\pmb \alpha}^T {\pmb x}_i" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;\doteq&space;{\pmb&space;\alpha}^T&space;{\pmb&space;x}_i" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;\doteq&space;{\pmb&space;\alpha}^T&space;{\pmb&space;x}_i" title="\left \langle {\pmb \alpha}, {\pmb x}_i \right \rangle_\mathcal{H} \doteq {\pmb \alpha}^T {\pmb x}_i" /></a>
 . The corresponding standard gradient descent iteration is hence,
 
 <p align="center">
@@ -25,9 +25,9 @@ is a vector space and
 </p>
 
 where
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;H&space;\doteq&space;X^T&space;X" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;H&space;\doteq&space;X^T&space;X" title="H \doteq X^T X" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;H&space;\doteq&space;X^T&space;X" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;H&space;\doteq&space;X^T&space;X" title="H \doteq X^T X" /></a>
 is the covariance matrix and
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" title="{\pmb b} \doteq X^T{\pmb y}" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" title="{\pmb b} \doteq X^T{\pmb y}" /></a>
 . We construct EigenPro preconditioner P using the approximate top eigensystem of H,
 which can be efficiently calculated when H has fast eigendecay.
 
@@ -36,7 +36,7 @@ which can be efficiently calculated when H has fast eigendecay.
 </p>
 
 Here we select
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\tau&space;\leq&space;1" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\tau&space;\leq&space;1" title="\tau \leq 1" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\tau&space;\leq&space;1" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\tau&space;\leq&space;1" title="\tau \leq 1" /></a>
 to counter the negative impact of eigensystem approximation error on convergence.
 The EigenPro iteration then runs as follows,
 
@@ -44,14 +44,14 @@ The EigenPro iteration then runs as follows,
 <a href="https://www.codecogs.com/eqnedit.php?latex={\pmb&space;\alpha}&space;\leftarrow&space;{\pmb&space;\alpha}&space;-&space;(\eta&space;\frac{\lambda_1(H)}{\lambda_{k&plus;1}(H)})&space;P(H&space;{\pmb&space;\alpha}&space;-&space;{\pmb&space;b})" target="_blank"><img src="https://latex.codecogs.com/png.latex?{\pmb&space;\alpha}&space;\leftarrow&space;{\pmb&space;\alpha}&space;-&space;(\eta&space;\frac{\lambda_1(H)}{\lambda_{k&plus;1}(H)})&space;P(H&space;{\pmb&space;\alpha}&space;-&space;{\pmb&space;b})" title="{\pmb \alpha} \leftarrow {\pmb \alpha} - (\eta \frac{\lambda_1(H)}{\lambda_{k+1}(H)}) P(H {\pmb \alpha} - {\pmb b})" /></a>
 </p>
 
-With Larger
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\lambda_1(H)&space;/&space;\lambda_{k&plus;1}(H)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\lambda_1(H)&space;/&space;\lambda_{k&plus;1}(H)" title="\lambda_1(H) / \lambda_{k+1}(H)" /></a>
+With larger
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\lambda_1(H)&space;/&space;\lambda_{k&plus;1}(H)" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\lambda_1(H)&space;/&space;\lambda_{k&plus;1}(H)" title="\lambda_1(H) / \lambda_{k+1}(H)" /></a>
 , EigenPro iteration yields higher convergence acceleration over standard (stochastic) gradient descent.
 This is especially critical in the kernel setting where (widely used) smooth kernels have exponential eigendecay.
 Note that in such setting 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathcal{H}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\mathcal{H}" title="\mathcal{H}" /></a> 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathcal{H}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\mathcal{H}" title="\mathcal{H}" /></a> 
 is typically an RKHS (reproducing kernel Hilbert space) of infinite dimension. Thus it is necessary to parametrize the (approximate) solution in a subspace of finite dimension (e.g. 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" title="\mathrm{span}_{{\pmb x} \in \{ {\pmb x}_1, \ldots, {\pmb x}_n \}} \{ k(\cdot, {\pmb x}) \}" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" title="\mathrm{span}_{{\pmb x} \in \{ {\pmb x}_1, \ldots, {\pmb x}_n \}} \{ k(\cdot, {\pmb x}) \}" /></a>
 ).
 See [this paper]() for more details on the kernel setting and some theoretical results.
 
@@ -103,7 +103,7 @@ Note that the initialization of PSGD (SGD optimizer for primal kernel method) ne
 Therefore we preprocess each sample by appending its sample id after its feature vector (ix).
 The KernelEmbedding layer is a non-trainable layer that maps input feature vector (x) to kernel features (kfeat) 
 with a given kernel function (in kernels.py) 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;{\pmb&space;x}&space;\rightarrow&space;(k({\pmb&space;x},&space;{\pmb&space;x}_1),&space;\ldots,&space;k({\pmb&space;x},&space;{\pmb&space;x}_n))^T" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;{\pmb&space;x}&space;\rightarrow&space;(k({\pmb&space;x},&space;{\pmb&space;x}_1),&space;\ldots,&space;k({\pmb&space;x},&space;{\pmb&space;x}_n))^T" title="{\pmb x} \rightarrow (k({\pmb x}, {\pmb x}_1), \ldots, k({\pmb x}, {\pmb x}_n))^T" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;{\pmb&space;x}&space;\rightarrow&space;(k({\pmb&space;x},&space;{\pmb&space;x}_1),&space;\ldots,&space;k({\pmb&space;x},&space;{\pmb&space;x}_n))^T" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;{\pmb&space;x}&space;\rightarrow&space;(k({\pmb&space;x},&space;{\pmb&space;x}_1),&space;\ldots,&space;k({\pmb&space;x},&space;{\pmb&space;x}_n))^T" title="{\pmb x} \rightarrow (k({\pmb x}, {\pmb x}_1), \ldots, k({\pmb x}, {\pmb x}_n))^T" /></a>
 ,
 ```
 kfeat = KernelEmbedding(kernel, x_train,
