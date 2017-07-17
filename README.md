@@ -129,7 +129,7 @@ model.compile(loss='mse',
               metrics=['accuracy'])
 ```
 
-The training can be performed by calling the method fit(),
+The training can be performed by calling the method fit(...),
 ```
 model.fit(utils.add_index(x_train), y_train,
           batch_size=256, epochs=10, verbose=0,
@@ -270,6 +270,13 @@ In these experiments, EigenPro (Primal) achieves classification error 1.20%, aft
     <td align="center">2.4s</td>
     <td align="center">2.0s</td>
   </tr>
+  <tr>
+    <td>One GTX Titan Xp (Pascal)</td>
+    <td align="center">3.0s</td>
+    <td align="center">2.7s</td>
+    <td align="center">1.6s</td>
+    <td align="center">1.4s</td>
+  </tr>
 </table>
 
 ### EigenPro Preprocessing Time
@@ -282,6 +289,10 @@ In our experiments we construct the EigenPro preconditioner by computing the top
   </tr>
   <tr>
     <td>One GTX Titan X (Maxwell)</td>
-    <td align="center">16.2s</td>
+    <td align="center">18.1s</td>
+  </tr>
+  <tr>
+    <td>One GTX Titan Xp (Pascal)</td>
+    <td align="center">17.4s</td>
   </tr>
 </table>
