@@ -38,8 +38,8 @@ args_dict = vars(args)
 # Set the hyper-parameters.
 bs = 256            # size of the mini-batch
 eta = np.float32(5) # step size
-M = 4800            # (EigenPro) subsample size.
-k = 160             # (EigenPro) top-k eigensystem.
+M = 4800            # (EigenPro) subsample size
+k = 160             # (EigenPro) top-k eigensystem
 
 num_classes = 10	    # number of classes
 eta = eta * num_classes # correction due to mse loss
