@@ -93,6 +93,7 @@ to get familiar with its components.
 Then we can create the input layer,
 ```
 import mnist
+import utils
 (x_train, y_train), (x_test, y_test) = mnist.load()
 n, D = x_train.shape
 ix = Input(shape=(D+1,), dtype='float32', name='indexed-feat')
@@ -120,7 +121,7 @@ y = Dense(num_classes, input_shape=(n,),
 ```
 
 Thus the Keras model can be created using the input tensor (ix) and the prediction tensor (y).
-Also, calling the compile() method to specify the loss function and optimizer for training,
+Also, calling the compile(...) method to specify the loss function and optimizer for training,
 as well as the metrics for evaluation.
 ```
 model = Model(ix, y)
@@ -149,7 +150,7 @@ where scores[0] is the L2 loss (mse) and scores[1] the accuracy on the testing s
 
 ## Using the EigenPro iteration
 The EigenPro iteration can be called through a Keras Model.
-It is integrated in the two optimizers, SGD and PSGD. The former works with a finite dimension feature map like random Fourier feature; the latter works in an RKHS related to a kernel function. Note the latter requires appending a sample id (used during training) to each data sample,
+It is integrated in the two optimizers, SGD and PSGD. The former works with a finite dimension feature map like random Fourier feature; the latter works in an RKHS related to a kernel function. Note the latter requires appending a sample id (used during training) to each data sample.
 
 By default, the optimizers use standard (stochastic) gradient descents. To enable EigenPro iteration, pass parameter eigenpro\_f to the optimizer, such like
 ```
