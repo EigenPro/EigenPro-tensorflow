@@ -76,7 +76,7 @@ class SGD(Optimizer):
             new_p = p - eta * g
             if eigenpro_f:
                 new_p = new_p + eta * eigenpro_f(g)
-# apply constraints
+            # apply constraints
             if p in constraints:
                 c = constraints[p]
                 new_p = c(new_p)
