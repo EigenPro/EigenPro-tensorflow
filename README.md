@@ -178,7 +178,7 @@ model.fit(x_train, y_train)
 ## Reference experimental results
 
 ### Classification Error (MNIST)
-In these experiments, EigenPro (Primal) achieves classification error 1.20%, after only 10 epochs. For comparison, Pegasos reaches error 1.22% after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.80% after 20 epochs and Pegasos reaches error rate 1.63% after the same number of epochs.
+In these experiments, EigenPro (Primal) achieves classification error 1.22% using only 10 epochs. For comparison, Pegasos reaches the same error after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.75% after 20 epochs and Pegasos reaches error rate 1.48% after the same number of epochs.
 
 <table>
   <tr>
@@ -205,36 +205,36 @@ In these experiments, EigenPro (Primal) achieves classification error 1.20%, aft
   </tr>
   <tr>
     <td>1</td>
-    <td>0.06%</td>
-    <td>1.42%</td>
+    <td>0.43%</td>
+    <td>1.75%</td>
     <td>4.01%</td>
     <td>4.35%</td>
-    <td>0.11%</td>
-    <td>1.61%</td>
-    <td>4.03%</td>
-    <td>4.31%</td>
+    <td>0.39%</td>
+    <td>1.88%</td>
+    <td>4.00%</td>
+    <td>4.35%</td>
   </tr>
   <tr>
     <td>5</td>
-    <td>0.01%</td>
-    <td>1.25%</td>
+    <td>0.02%</td>
+    <td>1.26%</td>
     <td>1.58%</td>
     <td>2.32%</td>
-    <td>0.02%</td>
-    <td><b>1.51%</b></td>
-    <td>1.64%</td>
-    <td>2.41%</td>
+    <td>0.05%</td>
+    <td><b>1.48%</b></td>
+    <td>1.70%</td>
+    <td>2.51%</td>
   </tr>
   <tr>
     <td>10</td>
     <td>0.0%</td>
-    <td><b>1.20%</b></td>
+    <td><b>1.22%</b></td>
     <td>0.89%</td>
     <td>1.91%</td>
-    <td>0.0%</td>
-    <td>1.55%</td>
-    <td>2.02%</td>
-    <td>1.97%</td>
+    <td>0.01%</td>
+    <td>1.49%</td>
+    <td>0.98%</td>
+    <td>2.09%</td>
   </tr>
   <tr>
     <td>20</td>
@@ -243,9 +243,9 @@ In these experiments, EigenPro (Primal) achieves classification error 1.20%, aft
     <td>0.40%</td>
     <td>1.63%</td>
     <td>0.0%</td>
-    <td>1.54%</td>
+    <td>1.48%</td>
     <td>0.48%</td>
-    <td>1.80%</td>
+    <td>1.75%</td>
   </tr>
 </table>
 

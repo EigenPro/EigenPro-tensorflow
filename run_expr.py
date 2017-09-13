@@ -95,6 +95,10 @@ trainers['Pegasos'] = Trainer(model=model,
 embed = Model(ix, kfeat)
 kf, scale = utils.asm_eigenpro_f(
     x_train, kernel, M, k, 1, in_rkhs=True)
+y = Dense(num_classes, input_shape=(n,),
+          activation='linear',
+          kernel_initializer='zeros',
+          use_bias=False)(kfeat)
 model = Model(ix, y)
 model.compile(loss='mse',
               optimizer=PSGD(pred_t=y,
@@ -128,6 +132,10 @@ trainers['SGD with random Fourier feature'] = Trainer(
 # Assemble EigenPro trainer.
 f, scale = utils.asm_eigenpro_f(
 	x_train, rf_f, M, k, .25)
+y = Dense(num_classes, input_shape=(d,),
+          activation='linear',
+          kernel_initializer='zeros',
+          use_bias=False)(rf_f(x))
 model = Model(x, y)
 model.compile(loss='mse',
               optimizer=SGD(eta=scale*eta, eigenpro_f=f),
