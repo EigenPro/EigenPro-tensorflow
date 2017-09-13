@@ -1,7 +1,7 @@
 # EigenPro
 
 ## Intro
-EigenPro is a preconditioned (stochastic) gradient descent iteration that accelerates the convergence on minimizing linear and kernel least squares, defined as
+EigenPro is a preconditioned (stochastic) gradient descent iteration proposed in ["Diving into the shallows: a computational perspective on large-scale shallow learning"](https://arxiv.org/abs/1703.10622). It accelerates the convergence of SGD iteration when minimizing linear and kernel least squares, defined as
 
 <p align="center">
 <a href="https://www.codecogs.com/eqnedit.php?latex=\arg&space;\min_{{\pmb&space;\alpha}&space;\in&space;\mathcal{H}}&space;\frac{1}{n}&space;\sum_{i=1}^{n}&space;{&space;(\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;-&space;y_i)^2}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\arg&space;\min_{{\pmb&space;\alpha}&space;\in&space;\mathcal{H}}&space;\frac{1}{n}&space;\sum_{i=1}^{n}&space;{&space;(\left&space;\langle&space;{\pmb&space;\alpha},&space;{\pmb&space;x}_i&space;\right&space;\rangle_\mathcal{H}&space;-&space;y_i)^2}" title="\arg \min_{{\pmb \alpha} \in \mathcal{H}} \frac{1}{n} \sum_{i=1}^{n} { (\left \langle {\pmb \alpha}, {\pmb x}_i \right \rangle_\mathcal{H} - y_i)^2}" /></a>
