@@ -87,6 +87,7 @@ def asm_eigenpro_f(feat, phi, M, k, tau, in_rkhs=False):
     Returns:
         f:      tensor function.
         scale:  factor that rescales step size.
+        s0:     largest eigenvalue.
     """
 
     start = time.time()
@@ -118,12 +119,14 @@ def asm_eigenpro_f(feat, phi, M, k, tau, in_rkhs=False):
         D = (1 - K.sqrt(tau * sk / s)) / s
         f = lambda g, kfeat: K.dot(
             V * D, K.dot(K.transpose(K.dot(kfeat, V)), g))
+        s0 = 2 * _s[0] / n
     else:
-        scale = _s[0] / _sk
+        scale = np.float32(_s[0] / _sk)
         D = 1 - tau * sk / s
         f = lambda g: K.dot(V * D, K.dot(K.transpose(V), g))
+        s0 = np.float32(_s[0] / np.sqrt(n))
 
-    return f, scale
+    return f, scale, s0
 
 
 def GramSchmidtProcess(A):

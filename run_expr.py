@@ -37,12 +37,10 @@ args_dict = vars(args)
 
 # Set the hyper-parameters.
 bs = 256            # size of the mini-batch
-eta = np.float32(5) # step size
 M = 4800            # (EigenPro) subsample size
 k = 160             # (EigenPro) top-k eigensystem
 
 num_classes = 10	    # number of classes
-eta = eta * num_classes # correction due to mse loss
 
 (x_train, y_train), (x_test, y_test) = mnist.load()
 n, D = x_train.shape    # (n_sample, n_feature)
@@ -72,6 +70,13 @@ else:
 trainers = collections.OrderedDict()
 Trainer = collections.namedtuple('Trainer', ['model', 'x_train', 'x_test'])
 
+
+# Calculate step size and (Primal) EigenPro preconditioner.
+kf, scale, s0 = utils.asm_eigenpro_f(
+    x_train, kernel, M, k, 1, in_rkhs=True)
+eta = np.float32(1.5 / s0) # 1.5 / s0
+eta = eta * num_classes # correction due to mse loss
+
 # Assemble Pegasos trainer.
 input_shape = (D+1,) # n_feature, (sample) index
 ix = Input(shape=input_shape, dtype='float32', name='indexed-feat')
@@ -93,8 +98,6 @@ trainers['Pegasos'] = Trainer(model=model,
 
 # Assemble kernel EigenPro trainer.
 embed = Model(ix, kfeat)
-kf, scale = utils.asm_eigenpro_f(
-    x_train, kernel, M, k, 1, in_rkhs=True)
 y = Dense(num_classes, input_shape=(n,),
           activation='linear',
           kernel_initializer='zeros',
@@ -109,6 +112,7 @@ model.compile(loss='mse',
 trainers['Kernel EigenPro'] = Trainer(model=model,
                               x_train = utils.add_index(x_train),
                               x_test=utils.add_index(x_test))
+
 
 # Assemble SGD trainer.
 rff_weights = np.float32(       # for Gaussian kernel
@@ -130,7 +134,7 @@ trainers['SGD with random Fourier feature'] = Trainer(
 	model=model, x_train = x_train,	x_test=x_test)
 
 # Assemble EigenPro trainer.
-f, scale = utils.asm_eigenpro_f(
+f, scale, _ = utils.asm_eigenpro_f(
 	x_train, rf_f, M, k, .25)
 y = Dense(num_classes, input_shape=(d,),
           activation='linear',
