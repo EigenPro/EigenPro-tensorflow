@@ -28,7 +28,10 @@ where
 <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;H&space;\doteq&space;X^T&space;X" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;H&space;\doteq&space;X^T&space;X" title="H \doteq X^T X" /></a>
 is the covariance matrix and
 <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;{\pmb&space;b}&space;\doteq&space;X^T{\pmb&space;y}" title="{\pmb b} \doteq X^T{\pmb y}" /></a>
-. We construct EigenPro preconditioner P using the approximate top eigensystem of H,
+. The step size is automatically set as
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\eta&space;\leftarrow&space;1.5&space;\cdot&space;\lambda_1(H)^{-1}" target="_blank"><img align="center" src="https://latex.codecogs.com/gif.latex?\inline&space;\eta&space;\leftarrow&space;1.5&space;\cdot&space;\lambda_1(H)^{-1}" title="\eta \leftarrow 1.5 \cdot \lambda_1(H)^{-1}" /></a>
+to ensure fast convergence. Note that the top eigenvalue of the covariance is calculated approximately.
+We then construct EigenPro preconditioner P using the approximate top eigensystem of H,
 which can be efficiently calculated when H has fast eigendecay.
 
 <p align="center">
@@ -53,7 +56,7 @@ Note that in such setting
 is typically an RKHS (reproducing kernel Hilbert space) of infinite dimension. Thus it is necessary to parametrize the (approximate) solution in a subspace of finite dimension (e.g. 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" target="_blank"><img align="center" src="https://latex.codecogs.com/png.latex?\inline&space;\mathrm{span}_{{\pmb&space;x}&space;\in&space;\{&space;{\pmb&space;x}_1,&space;\ldots,&space;{\pmb&space;x}_n&space;\}}&space;\{&space;k(\cdot,&space;{\pmb&space;x})&space;\}" title="\mathrm{span}_{{\pmb x} \in \{ {\pmb x}_1, \ldots, {\pmb x}_n \}} \{ k(\cdot, {\pmb x}) \}" /></a>
 ).
-See [this paper]() for more details on the kernel setting and some theoretical results.
+See [this paper](https://arxiv.org/abs/1703.10622) for more details on the kernel setting and some theoretical results.
 
 
 
@@ -178,7 +181,7 @@ model.fit(x_train, y_train)
 ## Reference experimental results
 
 ### Classification Error (MNIST)
-In these experiments, EigenPro (Primal) achieves classification error 1.22% using only 10 epochs. For comparison, Pegasos reaches the same error after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.75% after 20 epochs and Pegasos reaches error rate 1.48% after the same number of epochs.
+In these experiments, EigenPro (Primal) achieves classification error 1.22% using only 10 epochs. For comparison, Pegasos reaches the same error after 80 epochs. Although the number of random features used by EigenPro (Random) and RF/DSGD is 6 * 10^4, same as the number of training points, methods using random features deliver generally worse performance. Specifically, RF/DSGD has error rate 1.75% after 20 epochs and EigenPro reaches error rate 1.48% after the same number of epochs.
 
 <table>
   <tr>
