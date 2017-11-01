@@ -11,6 +11,7 @@ import collections
 import keras
 import numpy as np
 import time
+import warnings
 
 from keras.layers import Dense, Input
 from keras.models import Model
@@ -23,6 +24,12 @@ import utils
 from backend_extra import hasGPU
 from layers import KernelEmbedding, RFF
 from optimizers import PSGD, SGD
+
+if keras.__version__ != '2.0.8':
+    warnings.warn('\n\nEigenPro-tensorflow may not work with Keras '
+                   'version other than 2.0.8 (your current version is %s).\n' 
+                   'Please switch to this version by command,\n'
+                   'pip install Keras==2.0.8\n\n' %(keras.__version__), Warning)
 
 assert keras.backend.backend() == u'tensorflow', \
        "Requires Tensorflow (>=1.2.1)."

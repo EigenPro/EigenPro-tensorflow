@@ -67,10 +67,9 @@ See [the paper](https://arxiv.org/abs/1703.10622) for more details on the kernel
 
 
 
-## Requirements: Tensorflow (>=1.2.1) and Keras (=2.0.2)
+## Requirements: Tensorflow (>=1.2.1) and Keras (=2.0.8)
 ```
 pip install tensorflow tensorflow-gpu
-pip install Keras==2.0.2
 ```
 Follow the [Tensorflow installation guide](https://www.tensorflow.org/install/install_linux) for Virtualenv setup.
 

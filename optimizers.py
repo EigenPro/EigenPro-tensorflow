@@ -21,7 +21,7 @@ class PSGD(Optimizer):
         self.index_t = index_t
         self.eigenpro_f = eigenpro_f
 
-    def get_updates(self, params, constraints, loss):
+    def get_updates(self, loss, params):
         self.updates = []
         grads = self.get_gradients(loss, [self.pred_t])
 
@@ -36,11 +36,6 @@ class PSGD(Optimizer):
             
             if eigenpro_f:
                 new_p = new_p + eta * eigenpro_f(g)
-
-            # apply constraints
-            if p in constraints:
-                c = constraints[p]
-                new_p = c(new_p)
 
             self.updates.append(K.update(p, new_p))
         return self.updates
@@ -64,7 +59,7 @@ class SGD(Optimizer):
         self.eta = K.variable(eta, name='eta')
         self.eigenpro_f = eigenpro_f
 
-    def get_updates(self, params, constraints, loss):
+    def get_updates(self, loss, params):
         self.updates = []
         grads = self.get_gradients(loss, params)
 
@@ -74,12 +69,10 @@ class SGD(Optimizer):
         shapes = [K.get_variable_shape(p) for p in params]
         for p, g in zip(params, grads):
             new_p = p - eta * g
+
             if eigenpro_f:
                 new_p = new_p + eta * eigenpro_f(g)
-            # apply constraints
-            if p in constraints:
-                c = constraints[p]
-                new_p = c(new_p)
+
             self.updates.append(K.update(p, new_p))
         return self.updates
 
