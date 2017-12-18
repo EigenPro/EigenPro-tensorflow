@@ -55,7 +55,7 @@ num_classes = 10	    # number of classes
 
 (x_train, y_train), (x_test, y_test) = mnist.load()
 n, D = x_train.shape    # (n_sample, n_feature)
-d = np.int32(n / 2) * 2 # number of random features
+d = np.int32(n>>1) * 2 # number of random features
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
@@ -128,7 +128,7 @@ trainers['Kernel EigenPro'] = Trainer(model=model,
 # Assemble SGD trainer.
 rff_weights = np.float32(       # for Gaussian kernel
     np.sqrt(2. / (2 * 5 ** 2))  # s = 5
-    * np.random.randn(D, d/2))
+    * np.random.randn(D, d>>1))
 input_shape = (D,)
 x = Input(shape=input_shape, dtype='float32', name='feat')
 rf_f = RFF(rff_weights, input_shape=input_shape)
@@ -159,7 +159,7 @@ trainers['EigenPro with random Fourier feature'] = Trainer(
 	model=model, x_train = x_train,	x_test=x_test)
 
 # Start training.
-for name, trainer in trainers.iteritems():
+for name, trainer in trainers.items():
     print("")
     initial_epoch=0
     np.random.seed(1) # Keras uses numpy random number generator
