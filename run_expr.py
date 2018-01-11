@@ -66,7 +66,7 @@ if args_dict['kernel'] == 'Gaussian':
     kernel = lambda x,y: kernels.Gaussian(x, y, s)
 
 elif args_dict['kernel'] == 'Laplace':
-    s = np.sqrt(10, dtype=np.float32)
+    s = np.float32(10)
     kernel = lambda x,y: kernels.Laplace(x, y, s)
 
 elif args_dict['kernel'] == 'Cauchy':
