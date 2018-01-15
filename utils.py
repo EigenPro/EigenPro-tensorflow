@@ -1,3 +1,4 @@
+import gc
 import numpy as np
 import tensorflow as tf
 import time
@@ -198,3 +199,9 @@ def nystrom_kernel_svd(X, kernel_f, m, k, bs=512):
     NU = GramSchmidtProcess(U.T).T
 
     return s, NU
+
+def reset():
+    """Reset the Keras session and release the GPU memory."""
+    K.clear_session()
+    reload(K)
+    gc.collect()

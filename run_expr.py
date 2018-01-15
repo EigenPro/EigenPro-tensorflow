@@ -177,3 +177,6 @@ for name, trainer in trainers.items():
         print("%s\t\ttrain error: %.2f%%\ttest error: %.2f%% (%d epochs, %.2f seconds)" %
               (name, (1 - tr_score[1]) * 100, (1 - te_score[1]) * 100, epoch, train_ts))
         initial_epoch = epoch
+
+del trainers
+utils.reset()
