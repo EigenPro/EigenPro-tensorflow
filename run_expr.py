@@ -108,7 +108,6 @@ trainers['Pegasos'] = Trainer(model=model,
                               x_test=utils.add_index(x_test))
 
 # Assemble kernel EigenPro trainer.
-embed = Model(ix, kfeat)
 y = Dense(num_classes, input_shape=(n,),
           activation='linear',
           kernel_initializer='zeros',
