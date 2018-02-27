@@ -71,7 +71,7 @@ def rsvd(X, phi, M, k):
     V = VT1[:k].T
     return s, V, sk
 
-def asm_eigenpro_f(feat, phi, M, k, tau, in_rkhs=False):
+def asm_eigenpro_f(feat, phi, M, k, tau, in_rkhs=False, seed=1):
     """Assemble eigenpro map and calculate step size scale factor
     such that the update rule,
         p <- p - eta * g
@@ -91,6 +91,7 @@ def asm_eigenpro_f(feat, phi, M, k, tau, in_rkhs=False):
         s0:     largest eigenvalue.
     """
 
+    np.random.seed(seed) # set random seed for subsamples
     start = time.time()
     n, D = feat.shape
     x = Input(shape=(D,), dtype='float32', name='feat')
